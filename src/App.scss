@@ -1,0 +1,60 @@
+.tagPageContainer {
+  max-width: 768px;
+  margin: 88px auto 0;
+}
+.tagName {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 54px;
+  letter-spacing: 0.16px;
+  color: #292929;
+  margin: 0 0 16px;
+}
+.relatedTagHeader {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.08px;
+  color: #757575;
+  margin: 0 0 12px;
+}
+.relatedTags {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.relatedTags a {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.08px;
+  background: #f7f7f7;
+  margin-right: 8px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  color: #292929;
+}
+.articlesContainer {
+  margin: 48px 0;
+}
+.btnContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btnContainer button {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 20px;
+  color: #757575;
+  background: #ffffff;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid #757575;
+}
+.btnContainer button a {
+  text-decoration: none;
+  color: #757575;
+}

@@ -1,0 +1,88 @@
+* {
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+}
+.ArticleCardDetail {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 0 0 32px;
+    padding: 0 0 32px;
+    border-bottom: 1px solid #d9d9d9;
+}
+.ArticleImg {
+    display: inline-block;
+    margin: 0px;
+    background-image: "/badge.png";
+}
+.ArticleContent {
+    max-width: 448px;
+    padding-left: 24px;
+}
+.ArticleTitle {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    margin: 0 0 12px;
+    color: #292929;
+}
+.ArticleText {
+    font-family: Merriweather;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0.01em;
+    color: #757575;
+    margin-bottom: 16px;
+    margin-top: 12px;
+}
+.ArticleDetailContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ArticleDetail {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.authorImg {
+    width: 32px;
+    height: 32px;
+    border-radius: 100%;
+}
+.authorName {
+    padding-left: 8px;
+    text-decoration: none;
+    color: #757575;
+    font-weight: 600;
+}
+.ArticleDetail p {
+    padding: 0 8px;
+    color: #757575;
+}
+.articleTime {
+    font-weight: 400;
+}
+.articleCategories {
+    text-decoration: none;
+    color: #757575;
+    font-weight: 600;
+    margin: 0;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: 0.16px;
+}
+.saveBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
