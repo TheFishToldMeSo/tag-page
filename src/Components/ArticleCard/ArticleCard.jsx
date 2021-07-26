@@ -1,6 +1,15 @@
 import "./ArticleCard.scss"
 
 export default function ArticleCard({ articleDetails }) {
+    const rawHtml = (text, className = "") => {
+        if (!text) return "";
+        const regexCheckHtml = RegExp("<.+?>", "g").test(text);
+        return regexCheckHtml ? (
+            <div className={className} dangerouslySetInnerHTML={{ __html: text }} />
+        ) : (
+            text
+        );
+    };
     const HOST = "https://vietcetera.com/vn"
 
     let dayTime = articleDetails.publishDate.slice(8, 10) + " THG " + articleDetails.publishDate.slice(5, 7);
@@ -10,11 +19,11 @@ export default function ArticleCard({ articleDetails }) {
         <div className="ArticleCardDetail">
             <div className="ImgContainer">
                 <a href={`${HOST}/${articleDetails.slug}`} title={articleDetails.title}>
-                    <img className="ArticleImg" src={`https://vietcetera.com/${articleDetails.images.url}`} alt="Hoiana" width="272" height="184" />   </a>
+                    <img className="ArticleImg" src={`https://vietcetera.com/${articleDetails.images.url}`} alt={articleDetails.title} width="272" height="184" />   </a>
             </div>
             <div className="ArticleContent">
                 <a className="ArticleTitle" href={`${HOST}/${articleDetails.slug}`} title={articleDetails.title}>{articleDetails.title}</a>
-                <p className="ArticleText">{articleDetails.excerpt}</p>
+                <div className="ArticleText">{rawHtml(articleDetails.excerpt)}</div>
                 <div className="ArticleDetailContainer">
                     <div className="ArticleDetail">
                         <a href={`${HOST}/thong-tin-ca-nhan/${articleDetails.writer.username}`} title={articleDetails.writer.penname}>

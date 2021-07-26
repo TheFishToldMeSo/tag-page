@@ -5,20 +5,33 @@ import fetch from "isomorphic-fetch";
 import ArticleCard from './Components/ArticleCard/ArticleCard';
 
 function App() {
-  // parse json from server
+  // parse main articles content json from server
   const [infoTag, setInfoTag] = useState({})
+  const [primaryIsLoading, setPrimaryIsLoading] = useState(false);
+  const [recommendIsLoading, setRecommendIsLoading] = useState(false);
   const [articlesArray, setArticleArray] = useState([])
+  const [dataArticles, setDataArticles] = useState({})
   const [pageNumber, setPageNumber] = useState(1)
+  // parse recommended content json from server
+  const [recommendedArticlesArray, setRecommendedArticlesArray] = useState([])
+  const [dataRecommendations, setDataRecommendations] = useState({})
+  const [recommendPageNumber, setRecommendPageNumber] = useState(1)
 
   const HOST = "https://cms.vietcetera.dev/client/api"
-  const getTagAndItsRelates = `${HOST}/v2/tags/coi-mo`
-  const getTagsArticle = `${HOST}/v2/tags/articles/coi-mo?page=${pageNumber}&limit=8&languageSort=VN`;
-  // const getTagsRecommendedArticles = `${HOST}/v2/tags/recommend-articles/coi-mo?page=${pageNumber}&limit=8`;
 
-  const getArticlesOfTag = () => {
+  const getTagAndItsRelates = `${HOST}/v2/tags/coi-mo`
+
+  // const getTagsArticle = `${HOST}/v2/tags/articles/coi-mo?page=${pageNumber}&limit=8&languageSort=VN`;
+  const getTagsArticle = (pageProcess) => `${HOST}/v2/tags/articles/coi-mo?page=${pageProcess}&limit=8&languageSort=VN`;
+
+  const getTagsRecommendedArticles = (pageProcess) => `${HOST}/v2/tags/recommend-articles/coi-mo?page=${pageProcess}&limit=8`;
+
+  const getInfoTag = () => {
     // fetch của browser
     // IE => ko có fetch
     try {
+      // setIsLoading(true)
+      // console.log("isLoading", isLoading)
       // const response = await fetch(`https://cms.vietcetera.dev/client/api//v2/tags/tan-chay`)
       // const json = response.json()
       // console.log("json", json)
@@ -29,41 +42,80 @@ function App() {
             setInfoTag(prevInfo => ({ ...prevInfo, ...json.data }))
           }
         })
+      // .finally(() => {
+      //   setIsLoading(false)
+      //   console.log("isLoading tags", isLoading)
+      // })
     }
     catch (e) {
       console.log("e", e)
+      // setIsLoading(false)
     }
   }
-  const getDataArticles = () => {
+
+  const getDataArticles = async (pageProcess) => {
     try {
-      return fetch(getTagsArticle)
+      setPrimaryIsLoading(true)
+      return await fetch(getTagsArticle(pageProcess))
         .then((response) => response.json())
         .then(json => {
           if (json.message === "GET_SUCCESSFUL") {
+            setDataArticles(prevState => ({ ...prevState, ...json.data }))
             setArticleArray([...articlesArray, ...json.data.articles])
-            console.log(`button clicked, page is `, pageNumber)
+          }
+        })
+    }
+    catch (e) {
+      console.log("e", e)
+      // setIsLoading(false)
+    }
+    finally {
+      // setTimeout(() => setIsLoading(false), 1000)
+      setPrimaryIsLoading(false)
+    }
+  }
+
+  const getRecommendedArticles = async (pageProcess) => {
+    try {
+      setRecommendIsLoading(true)
+      return await fetch(getTagsRecommendedArticles(pageProcess))
+        .then((response) => response.json())
+        .then(json => {
+          if (json.message === "GET_SUCCESSFUL") {
+            setDataRecommendations(prevState => ({ ...prevState, ...json.data }))
+            setRecommendedArticlesArray([...recommendedArticlesArray, ...json.data.articles])
           }
         })
     }
     catch (e) {
       console.log("e", e)
     }
+    finally {
+      // setTimeout(() => setIsLoading(false), 1000)
+      setRecommendIsLoading(false)
+    }
   }
+
   useEffect(() => {
     console.log("didmount run")
-    getArticlesOfTag()
-    getDataArticles()
+    getInfoTag()
+    getDataArticles(pageNumber)
+    getRecommendedArticles(recommendPageNumber)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  let maxArticlePages = infoTag.totalOfArticle / 8;
-  if ((infoTag.totalOfArticle % 8) !== 0 && infoTag.totalOfArticle > 8) maxArticlePages++;
-  const getNextArticle = () => {
-    if (pageNumber <= maxArticlePages) {
-      setPageNumber(pageNumber + 1)
-      getDataArticles()
-    }
+  const loadMoreArticleOfTag = () => {
+    // chạy đầu tiên
+    setPageNumber(prevPage => prevPage + 1)
+    // chạy thứ 2
+    getDataArticles(pageNumber + 1)
+    // kết thúc hàm
   }
+  const loadMoreRecommendedArticles = () => {
+    setRecommendPageNumber(prevPage => prevPage + 1)
+    getRecommendedArticles(recommendPageNumber + 1)
+  }
+
 
   return (
     <div className="tagPageContainer">
@@ -77,17 +129,27 @@ function App() {
         {/* {renderRelatedTags()} */}
       </div>
       <div className="articlesContainer">
-        {articlesArray && articlesArray.map((singleArticle) => {
+        {articlesArray.length > 0 && articlesArray.map((singleArticle) => {
           return <ArticleCard articleDetails={singleArticle} key={singleArticle.id} />
         })}
+      </div>
+      {primaryIsLoading ? <div class="lds-dual-ring" /> : <div className="btnContainer">
+        {dataArticles.isNextpaging ? <button onClick={loadMoreArticleOfTag}>Xem thêm bài viết</button> : <span>Bạn đã xem hết bài viết</span>}
+      </div>}
 
+      <h2 class="tag-recommendation">Có thể bạn quan tâm</h2>
+      <div className="articlesContainer">
+        {recommendedArticlesArray.length > 0 && recommendedArticlesArray.map((singleArticle) => {
+          return <ArticleCard articleDetails={singleArticle} key={singleArticle.id} />
+        })}
       </div>
-      <div className="btnContainer">
-        {pageNumber <= maxArticlePages && <button onClick={getNextArticle}>Xem thêm bài viết</button>}
-      </div>
+      {recommendIsLoading ? <div class="lds-dual-ring" /> : <div className="btnContainer">
+        {dataRecommendations.isNextpaging ? <button onClick={loadMoreRecommendedArticles}>Xem thêm bài viết</button> : <span>Bạn đã xem hết bài viết</span>}
+      </div>}
     </div>
   );
 }
+
 
 export default App;
 

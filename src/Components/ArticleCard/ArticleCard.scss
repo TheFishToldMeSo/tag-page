@@ -5,6 +5,11 @@ a {
     text-decoration: none;
 }
 .ArticleCardDetail {
+    @media (max-width: 576px) {
+        margin-bottom: 12px;
+        padding-bottom: 12px;
+        border: none;
+    }
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -14,6 +19,11 @@ a {
     border-bottom: 1px solid #d9d9d9;
 }
 .ArticleImg {
+    @media (max-width: 576px) {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 12px;
+    }
     display: inline-block;
     margin: 0px;
     background-image: "/badge.png";
@@ -21,6 +31,9 @@ a {
 .ArticleContent {
     max-width: 448px;
     padding-left: 24px;
+    @media (max-width: 576px) {
+        padding: 10px;
+    }
 }
 .ArticleTitle {
     font-size: 20px;
@@ -85,4 +98,7 @@ a {
     border: none;
     cursor: pointer;
     padding: 0;
+}
+
+@media (max-width: 768px) {
 }
