@@ -27,11 +27,11 @@ export default function ArticleCard({ articleDetails }) {
                 <div className="ArticleDetailContainer">
                     <div className="ArticleDetail">
                         <a href={`${HOST}/thong-tin-ca-nhan/${articleDetails.writer.username}`} title={articleDetails.writer.penname}>
-                            <img class="authorImg" src={`https://vietcetera.com/${articleDetails.writer.avatar}`} alt={articleDetails.writer.penname} width="32" height="32" />
+                            <img className="authorImg" src={`https://vietcetera.com/${articleDetails.writer.avatar}`} alt={articleDetails.writer.penname} width="32" height="32" />
                         </a>
                         <a className="authorName" href={`${HOST}/thong-tin-ca-nhan/${articleDetails.writer.username}`} title={articleDetails.writer.penname}>{articleDetails.writer.penname}</a>
                         <p>·</p>
-                        <p class="articleTime">{dayTime}</p>
+                        <p className="articleTime">{dayTime}</p>
                         <p>·</p>
                         <a className="articleCategories" href={`${HOST}/chu-de/${articleDetails.topic[0].key}`} title={articleDetails.topic[0].name}>{articleDetails.topic[0].name.toUpperCase()}</a>
 

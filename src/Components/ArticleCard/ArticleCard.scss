@@ -70,10 +70,10 @@ a {
 }
 .authorName {
     @media (max-width: 768px) {
-        padding-left: 8px;
         font-size: small;
     }
 
+    padding-left: 8px;
     text-decoration: none;
     color: #757575;
     font-weight: 600;

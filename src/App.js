@@ -133,17 +133,17 @@ function App() {
           return <ArticleCard articleDetails={singleArticle} key={singleArticle.id} />
         })}
       </div>
-      {primaryIsLoading ? <div class="lds-dual-ring" /> : <div className="btnContainer">
+      {primaryIsLoading ? <div className="lds-dual-ring" /> : <div className="btnContainer">
         {dataArticles.isNextpaging ? <button onClick={loadMoreArticleOfTag}>Xem thêm bài viết</button> : <span>Bạn đã xem hết bài viết</span>}
       </div>}
 
-      <h2 class="tag-recommendation">Có thể bạn quan tâm</h2>
+      <h2 className="tag-recommendation">Có thể bạn quan tâm</h2>
       <div className="articlesContainer">
         {recommendedArticlesArray.length > 0 && recommendedArticlesArray.map((singleArticle) => {
           return <ArticleCard articleDetails={singleArticle} key={singleArticle.id} />
         })}
       </div>
-      {recommendIsLoading ? <div class="lds-dual-ring" /> : <div className="btnContainer">
+      {recommendIsLoading ? <div className="lds-dual-ring" /> : <div className="btnContainer">
         {dataRecommendations.isNextpaging ? <button onClick={loadMoreRecommendedArticles}>Xem thêm bài viết</button> : <span>Bạn đã xem hết bài viết</span>}
       </div>}
     </div>
