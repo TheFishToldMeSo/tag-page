@@ -57,6 +57,8 @@ a {
     align-items: center;
 }
 .ArticleDetail {
+    @media (max-width: 768px) {
+    }
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -67,19 +69,32 @@ a {
     border-radius: 100%;
 }
 .authorName {
-    padding-left: 8px;
+    @media (max-width: 768px) {
+        padding-left: 8px;
+        font-size: small;
+    }
+
     text-decoration: none;
     color: #757575;
     font-weight: 600;
 }
 .ArticleDetail p {
+    @media (max-width: 768px) {
+        font-size: small;
+    }
     padding: 0 8px;
     color: #757575;
 }
 .articleTime {
+    @media (max-width: 768px) {
+        font-size: small;
+    }
     font-weight: 400;
 }
 .articleCategories {
+    @media (max-width: 768px) {
+        font-size: small;
+    }
     text-decoration: none;
     color: #757575;
     font-weight: 600;
@@ -98,7 +113,4 @@ a {
     border: none;
     cursor: pointer;
     padding: 0;
-}
-
-@media (max-width: 768px) {
 }
